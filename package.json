@@ -1,0 +1,25 @@
+{
+  "name": "radio4000-scanner",
+  "version": "1.0.0",
+  "description": "Scan a Radio4000 channel for broken YouTube videos",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "micro",
+    "dev": "micro-dev",
+    "test": "xo"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "got": "^8.3.2",
+    "micro": "9.3.2",
+    "radio4000-sdk": "^0.0.5",
+    "xo": "0.21.1"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  },
+  "xo": {
+    "semicolon": false
+  }
+}
