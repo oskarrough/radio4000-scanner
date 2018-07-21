@@ -17,7 +17,10 @@ module.exports = async req => {
 	const parsed = url.parse(req.url, true)
 	const {slug} = parsed.query
 	if (!slug) {
-		return {help: '?slug=my-radio'}
+		return {
+			description: 'Find broken YouTube videos in a Radio4000 channel',
+			usage: 'To use,  /?slug=my-radio. For example: /?slug=good-time-radio'
+		}
 	}
 	const channel = await findChannelBySlug(slug)
 	const tracks = await findTracksByChannel(channel.id)
@@ -31,7 +34,15 @@ module.exports = async req => {
 	const status = `Analyzed ${tracks.length} tracks. ${
 		broken.length
 	} (${percentage}%) are broken.`
+	const brokenFormatted = broken.map(item => {
+		item.id = item.track.id
+		// Item.trackModel = `https://radio4000.firebaseio.com/tracks/${id}`
+		item.title = item.track.title
+		item.editLink = `https://radio4000.com/${slug}?editTrack=${item.id}`
+		delete item.track
+		delete item.available
+		return item
+	})
 
-	return {slug, status, broken}
+	return {slug, status, broken: brokenFormatted}
 }
-
