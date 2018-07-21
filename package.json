@@ -7,7 +7,8 @@
   "scripts": {
     "start": "micro",
     "dev": "micro-dev",
-    "test": "xo"
+    "test": "xo",
+		"deploy": "now; now alias find-broken.tracks.now.sh"
   },
   "license": "MIT",
   "dependencies": {
