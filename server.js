@@ -38,7 +38,7 @@ module.exports = async req => {
 		item.id = item.track.id
 		// Item.trackModel = `https://radio4000.firebaseio.com/tracks/${id}`
 		item.title = item.track.title
-		item.editLink = `https://radio4000.com/${slug}?editTrack=${item.id}`
+		item.editLink = `https://radio4000.com/${slug}/tracks?editTrack=${item.id}`
 		delete item.track
 		delete item.available
 		return item
