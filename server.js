@@ -13,15 +13,18 @@ const testTrack = async function (track) {
 }
 
 module.exports = async req => {
-	// Find tracks from a channel slug.
+	// Get the slug as query param.
 	const parsed = url.parse(req.url, true)
 	const {slug} = parsed.query
+
 	if (!slug) {
 		return {
 			description: 'Find broken YouTube videos in a Radio4000 channel',
 			usage: 'To use,  /?slug=my-radio. For example: /?slug=good-time-radio'
 		}
 	}
+
+	// Fetch channel and its tracks from the slug.
 	const channel = await findChannelBySlug(slug)
 	const tracks = await findTracksByChannel(channel.id)
 
@@ -31,12 +34,12 @@ module.exports = async req => {
 
 	// Human readable status.
 	const percentage = Math.round((broken.length / tracks.length) * 100)
-	const status = `Analyzed ${tracks.length} tracks. ${
-		broken.length
-	} (${percentage}%) are broken.`
+	const status = `Analyzed ${tracks.length} tracks. ${broken.length} (${percentage}%) are broken.`
+
+	// Create the data we want to return for each broken track.
 	const brokenFormatted = broken.map(item => {
 		item.id = item.track.id
-		// Item.trackModel = `https://radio4000.firebaseio.com/tracks/${id}`
+		// item.trackModel = `https://radio4000.firebaseio.com/tracks/${id}`
 		item.title = item.track.title
 		item.editLink = `https://radio4000.com/${slug}/tracks?editTrack=${item.id}`
 		delete item.track
@@ -44,5 +47,9 @@ module.exports = async req => {
 		return item
 	})
 
-	return {slug, status, broken: brokenFormatted}
+	return {
+		slug,
+		status,
+		broken: brokenFormatted
+	}
 }
