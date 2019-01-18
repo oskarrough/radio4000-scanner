@@ -12,9 +12,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "got": "^8.3.2",
-    "micro": "9.3.2",
-    "radio4000-sdk": "^0.0.5",
+    "got": "^9.6.0",
+    "micro": "9.3.3",
+    "radio4000-sdk": "^0.1.2",
     "xo": "0.21.1"
   },
   "devDependencies": {
